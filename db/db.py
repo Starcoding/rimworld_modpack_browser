@@ -1,14 +1,26 @@
-from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
-from sqlalchemy.orm import DeclarativeBase
+from typing import Any
 
-engine = create_async_engine("postgresql+asyncpg://test:test@localhost:5433/test")
-#  f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:"
-#  f"{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+from sqlalchemy import MetaData
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
+from sqlalchemy.orm import as_declarative, declared_attr
+
+import inflection
+from utils.config import settings
+
+engine = create_async_engine(settings.get_db_uri)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
+metadata = MetaData()
 
-class Base(DeclarativeBase):
-    pass
+
+@as_declarative()
+class Base:
+    id: Any
+    __name__: str
+
+    @declared_attr  # type: ignore
+    def __tablename__(self) -> str:
+        return inflection.underscore(self.__name__)
 
 
 async def get_async_session():

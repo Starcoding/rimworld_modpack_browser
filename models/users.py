@@ -5,10 +5,9 @@ from schemas.users import UserSchema
 
 
 class Users(Base):
-    __tablename__ = "users"
-
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
+    age: Mapped[float]
 
     def to_read_model(self) -> UserSchema:
         return UserSchema(
