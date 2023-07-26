@@ -2,3 +2,5 @@ venv
 *.pptx
 *.db
 __pycache__
+.env
+/dumps

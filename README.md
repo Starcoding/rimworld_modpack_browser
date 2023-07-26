@@ -15,4 +15,3 @@
 
 
 ### Документация к API
-![Alt text](docs/github/openapi.png)

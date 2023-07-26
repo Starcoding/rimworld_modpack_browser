@@ -1,0 +1,17 @@
+version: "3.9"
+
+volumes:
+  postgres_data:
+
+services:
+  postgres-rimworld:
+    image: postgres:15.3
+    environment:
+      PGDATA: /data/postgres
+    volumes:
+      - postgres_data:/data/postgres
+      - ./dumps:/tmp/dumps
+    ports:
+      - 5433:5432
+    env_file:
+      - .env
