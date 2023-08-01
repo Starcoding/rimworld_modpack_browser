@@ -12,5 +12,5 @@ class UsersService:
         return user_id
 
     async def get_users(self):
-        users = await self.users_repo.find_all()
+        users = await self.users_repo.get_list()
         return users

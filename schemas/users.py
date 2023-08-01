@@ -1,13 +1,16 @@
+from uuid import UUID
 from pydantic import BaseModel
 
 
 class UserSchema(BaseModel):
     id: int
-    name: str
+    uuid: UUID | None
+    nickname: str
 
     class Config:
         from_attributes = True
 
 
 class UserSchemaAdd(BaseModel):
-    name: str
+    nickname: str
+    uuid: UUID | None

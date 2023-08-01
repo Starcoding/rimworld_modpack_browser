@@ -1,2 +1,2 @@
-from .tasks import Tasks
+from .modpacks import ModPacks
 from .users import Users

@@ -1,7 +1,7 @@
-from typing import Any
+from typing import Any, AsyncGenerator
 
 from sqlalchemy import MetaData
-from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import as_declarative, declared_attr
 
 import inflection
@@ -21,6 +21,15 @@ class Base:
     @declared_attr  # type: ignore
     def __tablename__(self) -> str:
         return inflection.underscore(self.__name__)
+
+
+# async def get_db() -> AsyncGenerator:
+#     db = AsyncSession(bind=create_async_engine(settings.get_db_uri, future=True, echo=False), autocommit=False,
+#                       autoflush=False, expire_on_commit=False)
+#     try:
+#         yield db
+#     finally:
+#         await db.close()
 
 
 async def get_async_session():
